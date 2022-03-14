@@ -1,9 +1,8 @@
-import { capitalCase } from 'change-case';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 
-import { Box, Card, Stack, Link, Alert, Tooltip, Container, Typography } from '@mui/material';
+import { Card, Stack, Link, Container, Typography } from '@mui/material';
 import LeftSection from './LeftSection';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
@@ -12,7 +11,6 @@ import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
-import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { LoginForm } from '../../sections/auth/login';
@@ -59,7 +57,7 @@ export default function Login() {
         )}
 
         <Container maxWidth="sm" style={{margin: 0, padding: 0}}>
-          <ContentStyle style={{display: 'flex',flexDirection: 'column', justifyContent: 'flex-start'}}>
+          <ContentStyle style={{display: 'flex',flexDirection: 'column', justifyContent: 'flex-start', paddingInline: 90}}>
             <Stack direction="column" alignItems="center" sx={{ mt: 10 }}>
               <Image
                   visibleByDefault
@@ -75,16 +73,14 @@ export default function Login() {
             </Stack>
             
 
-            <LoginForm />
+            <LoginForm/>
 
-            {!smUp && (
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
-                <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                  Get started
-                </Link>
-              </Typography>
-            )}
+            <Typography variant="body2" align="center" sx={{ mt: 3 }}>
+              Don’t have an account?{' '}
+              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+                Register
+              </Link>
+            </Typography>
           </ContentStyle>
         </Container>
       </RootStyle>

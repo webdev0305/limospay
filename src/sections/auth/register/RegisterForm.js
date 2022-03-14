@@ -1,17 +1,20 @@
 import * as Yup from 'yup';
+import { Link as RouterLink } from 'react-router-dom';
 import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Stack, IconButton, InputAdornment, Alert } from '@mui/material';
+import { Stack, IconButton, InputAdornment, Alert, Link } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+// routes
+import { PATH_AUTH } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -19,14 +22,21 @@ export default function RegisterForm() {
   const { register } = useAuth();
 
   const isMountedRef = useIsMountedRef();
-
+  const [step, setStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [termsOfService, setTermsOfService] = useState(false)
 
-  const RegisterSchema = Yup.object().shape({
+  const RegisterSchema1 = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
     lastName: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+   
+  });
+  const RegisterSchema2 = Yup.object().shape({
     password: Yup.string().required('Password is required'),
+    confirmPassword: Yup.string().required('ConfirmPassword is required').matches('Password'),
+    termsOfService: Yup.boolean([true]).required('You must check this terms of service')
   });
 
   const defaultValues = {
@@ -34,10 +44,12 @@ export default function RegisterForm() {
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
+    termsOfService: false,
   };
 
   const methods = useForm({
-    resolver: yupResolver(RegisterSchema),
+    resolver: yupResolver(step===1?RegisterSchema1:RegisterSchema2),
     defaultValues,
   });
 
@@ -50,6 +62,10 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit = async (data) => {
+    if(step===1){
+      setStep(2)
+      return;
+    }
     try {
       await register(data.email, data.password, data.firstName, data.lastName);
     } catch (error) {
@@ -65,32 +81,62 @@ export default function RegisterForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="firstName" label="First name" />
-          <RHFTextField name="lastName" label="Last name" />
-        </Stack>
-
-        <RHFTextField name="email" label="Email address" />
-
-        <RHFTextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton edge="end" onClick={() => setShowPassword(!showPassword)}>
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-
-        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Register
-        </LoadingButton>
+        {step===1? (
+          <>
+            <RHFTextField name="firstName" label="First Name" />
+            <RHFTextField name="lastName" label="Last Name" />
+            <RHFTextField name="phone" label="Phone Number" />
+            <RHFTextField name="email" label="Email Address" />
+            <RHFTextField name="bvn" label="BVN" />
+          </>
+        ):(
+          <>
+          <RHFTextField
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            style={{marginTop: '50px'}}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowPassword(!showPassword)}>
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <RHFTextField
+            name="confirmPassword"
+            label="Confirm Password"
+            type={showConfirmPassword ? 'text' : 'password'}
+            style={{marginTop: '20px'}}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                    <Iconify icon={showConfirmPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <div style={{marginBottom: '50px'}}>
+            <RHFCheckbox name="termsOfService" label="Creating an account means you’ve accepted our" onClick={setTermsOfService(!termsOfService)}/>
+            <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+                Terms of Service
+              </Link>
+          </div>
+        </>
+        )}
+        {step===1? (
+          <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={false}>
+            Next
+          </LoadingButton>):(
+          <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} disabled={!termsOfService}>
+            Register
+          </LoadingButton>
+        )}
       </Stack>
     </FormProvider>
   );
