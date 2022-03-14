@@ -2,7 +2,9 @@ import { capitalCase } from 'change-case';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
+
 import { Box, Card, Stack, Link, Alert, Tooltip, Container, Typography } from '@mui/material';
+import LeftSection from './LeftSection';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
@@ -15,47 +17,29 @@ import Image from '../../components/Image';
 // sections
 import { LoginForm } from '../../sections/auth/login';
 
+
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: '100vh',
   },
 }));
 
-const HeaderStyle = styled('header')(({ theme }) => ({
-  top: 0,
-  zIndex: 9,
-  lineHeight: 0,
-  width: '100%',
+const ContentStyle = styled(Card)(({ theme }) => ({
+  width: 600,
+  // margin: 'auto',
   display: 'flex',
-  alignItems: 'center',
-  position: 'absolute',
-  padding: theme.spacing(3),
-  justifyContent: 'space-between',
-  [theme.breakpoints.up('md')]: {
-    alignItems: 'flex-start',
-    padding: theme.spacing(7, 5, 0, 7),
-  },
-}));
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 464,
-  display: 'flex',
+  height: 787,
   flexDirection: 'column',
   justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
-}));
-
-const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
-  margin: 'auto',
-  display: 'flex',
-  minHeight: '100vh',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(0, 5),
+  borderTop: '10px solid #00008B',
+  borderRadius: '10px',
 }));
 
 // ----------------------------------------------------------------------
@@ -70,56 +54,26 @@ export default function Login() {
   return (
     <Page title="Login">
       <RootStyle>
-        <HeaderStyle>
-          <Logo />
-          {smUp && (
-            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                Get started
-              </Link>
-            </Typography>
-          )}
-        </HeaderStyle>
-
         {mdUp && (
-          <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <Image
-              visibleByDefault
-              disabledEffect
-              alt="login"
-              src="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_login.png"
-            />
-          </SectionStyle>
+          <LeftSection />
         )}
 
-        <Container maxWidth="sm">
-          <ContentStyle>
-            <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+        <Container maxWidth="sm" style={{margin: 0, padding: 0}}>
+          <ContentStyle style={{display: 'flex',flexDirection: 'column', justifyContent: 'flex-start'}}>
+            <Stack direction="column" alignItems="center" sx={{ mt: 10 }}>
+              <Image
+                  visibleByDefault
+                  disabledEffect
+                  alt="login"
+                  src="/logo/limospay.svg"
+                  style={{width: '176px'}}
+              />
+                <Typography sx={{ mt:5 }}>Welcome Back</Typography>
+                <Typography variant="h4" gutterBottom sx={{mt: 3, fontWeight: 'Medium'}}>
+                  Login to your Account
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
-              </Box>
-
-              <Tooltip title={capitalCase(method)} placement="right">
-                <>
-                  <Image
-                    disabledEffect
-                    src={`https://minimal-assets-api.vercel.app/assets/icons/auth/ic_${method}.png`}
-                    sx={{ width: 32, height: 32 }}
-                  />
-                </>
-              </Tooltip>
             </Stack>
-
-            <Alert severity="info" sx={{ mb: 3 }}>
-              Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
-            </Alert>
+            
 
             <LoginForm />
 
