@@ -56,7 +56,7 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
       <Stack spacing={3}>
         <RHFTextField name="email" label="Email address" />
 
-        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} style={{marginTop: '50px'}}>
           Reset Password
         </LoadingButton>
       </Stack>
