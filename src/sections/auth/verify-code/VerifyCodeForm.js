@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,12 +10,19 @@ import { Input, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
+import {Dialog} from '../../../components/modal';
 
 // ----------------------------------------------------------------------
 
 export default function VerifyCodeForm() {
   const navigate = useNavigate();
-
+  const [open, setOpen] = useState(false);
+  const [DialogTitle, setDialogTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   const { enqueueSnackbar } = useSnackbar();
 
   const VerifyCodeSchema = Yup.object().shape({
@@ -56,13 +63,21 @@ export default function VerifyCodeForm() {
   }, []);
 
   const onSubmit = async (data) => {
+    
+    setDialogTitle('Creating Account')
+    setDescription('Please wait while we create and Account for you')
+    setLoading(true)
+    setOpen(true)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log('code:', Object.values(data).join(''));
 
-      enqueueSnackbar('Verify success!');
+      setDialogTitle('Welcome Message')
+      setDescription('You have successfully signed up LimosPay and a Waya Bank virtual account have been created for you.')
+      setLoading(false)
+      // enqueueSnackbar('Verify success!');
 
-      navigate(PATH_DASHBOARD.root, { replace: true });
+      // navigate(PATH_DASHBOARD.root, { replace: true });
     } catch (error) {
       console.error(error);
     }
@@ -140,6 +155,16 @@ export default function VerifyCodeForm() {
       >
         Submit
       </LoadingButton>
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        title={DialogTitle}
+        description={description}
+        loading={loading}
+        sx=""
+        variants=""/>
+          
+
     </form>
   );
 }
