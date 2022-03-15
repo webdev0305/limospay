@@ -4,7 +4,7 @@ import { PATH_DASHBOARD } from './routes/paths';
 // API
 // ----------------------------------------------------------------------
 
-export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
+export const HOST_API = process.env.REACT_APP_HOST_API_KEY || 'https://minimal-assets-api.vercel.app';
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -38,9 +38,9 @@ export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/ap
 
 export const HEADER = {
   MOBILE_HEIGHT: 64,
-  MAIN_DESKTOP_HEIGHT: 88,
-  DASHBOARD_DESKTOP_HEIGHT: 92,
-  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
+  MAIN_DESKTOP_HEIGHT: 72,
+  DASHBOARD_DESKTOP_HEIGHT: 80,
+  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 80,
 };
 
 export const NAVBAR = {

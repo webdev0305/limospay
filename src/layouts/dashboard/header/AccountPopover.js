@@ -70,22 +70,29 @@ export default function AccountPopover() {
     <>
       <IconButtonAnimate
         onClick={handleOpen}
+        size='small'
         sx={{
+          ml: 2,
           p: 0,
+          bgcolor: 'transparent',
+          '&:hover': {
+            bgcolor: 'transparent',
+          },
           ...(open && {
             '&:before': {
               zIndex: 1,
               content: "''",
               width: '100%',
               height: '100%',
-              borderRadius: '50%',
+              // borderRadius: '50%',
               position: 'absolute',
-              bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
+              // bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
             },
           }),
         }}
       >
         <MyAvatar />
+        <span style={{paddingLeft:'10px'}}>{user?.displayName}</span>
       </IconButtonAnimate>
 
       <MenuPopover

@@ -32,16 +32,6 @@ export default function NavSectionVertical({ navConfig, isCollapse = false, ...o
     <Box {...other}>
       {navConfig.map((group) => (
         <List key={group.subheader} disablePadding sx={{ px: 2 }}>
-          <ListSubheaderStyle
-            sx={{
-              ...(isCollapse && {
-                opacity: 0,
-              }),
-            }}
-          >
-            {group.subheader}
-          </ListSubheaderStyle>
-
           {group.items.map((list) => (
             <NavListRoot key={list.title} list={list} isCollapse={isCollapse} />
           ))}

@@ -60,35 +60,11 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
     <Scrollbar
       sx={{
         height: 1,
+        mt: 12,
         '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
       }}
     >
-      <Stack
-        spacing={3}
-        sx={{
-          pt: 3,
-          pb: 2,
-          px: 2.5,
-          flexShrink: 0,
-          ...(isCollapse && { alignItems: 'center' }),
-        }}
-      >
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Logo />
-
-          {isDesktop && !isCollapse && (
-            <CollapseButton onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />
-          )}
-        </Stack>
-
-        <NavbarAccount isCollapse={isCollapse} />
-      </Stack>
-
-      <NavSectionVertical navConfig={navConfig} isCollapse={isCollapse} />
-
-      <Box sx={{ flexGrow: 1 }} />
-
-      {!isCollapse && <NavbarDocs />}
+      <NavSectionVertical navConfig={navConfig} isCollapse={isCollapse}/>
     </Scrollbar>
   );
 
@@ -118,8 +94,10 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           PaperProps={{
             sx: {
               width: NAVBAR.DASHBOARD_WIDTH,
-              borderRightStyle: 'dashed',
+              border: 'none',
+              // borderRightStyle: 'dashed',
               bgcolor: 'background.default',
+              zIndex: theme.zIndex.appBar,
               transition: (theme) =>
                 theme.transitions.create('width', {
                   duration: theme.transitions.duration.standard,
