@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { OutlinedInput, Stack } from '@mui/material';
+import { Input, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -108,19 +108,19 @@ export default function VerifyCodeForm() {
             name={`code${index + 1}`}
             control={control}
             render={({ field }) => (
-              <OutlinedInput
+              <Input
                 {...field}
                 id="field-code"
                 autoFocus={index === 0}
-                placeholder="-"
+                placeholder=""
                 onChange={(event) => handleChangeWithNextField(event, field.onChange)}
                 inputProps={{
                   maxLength: 1,
                   sx: {
                     p: 0,
                     textAlign: 'center',
-                    width: { xs: 36, sm: 56 },
-                    height: { xs: 36, sm: 56 },
+                    width: { xs: 30, sm: 40 },
+                    height: { xs: 30, sm: 40 },
                   },
                 }}
               />
@@ -136,9 +136,9 @@ export default function VerifyCodeForm() {
         variant="contained"
         loading={isSubmitting}
         disabled={!isValid}
-        sx={{ mt: 3 }}
+        sx={{ mt: 5 }}
       >
-        Verify
+        Submit
       </LoadingButton>
     </form>
   );

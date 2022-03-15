@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Stack, IconButton, InputAdornment, Alert, Link } from '@mui/material';
+import { Stack, IconButton, InputAdornment, Alert, Link, FormControlLabel, Checkbox  } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
@@ -20,12 +20,12 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 
 export default function RegisterForm() {
   const { register } = useAuth();
+  const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
   const [step, setStep] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [termsOfService, setTermsOfService] = useState(false)
 
   const RegisterSchema1 = Yup.object().shape({
     firstName: Yup.string().required('First name required'),
@@ -35,8 +35,8 @@ export default function RegisterForm() {
   });
   const RegisterSchema2 = Yup.object().shape({
     password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string().required('ConfirmPassword is required').matches('Password'),
-    termsOfService: Yup.boolean([true]).required('You must check this terms of service')
+    confirmPassword: Yup.string().required('ConfirmPassword is required').oneOf([Yup.ref("password"), null], "password doesn't match"),
+    termsOfService: Yup.boolean().oneOf([true], 'You must check this terms of service'),
   });
 
   const defaultValues = {
@@ -67,7 +67,8 @@ export default function RegisterForm() {
       return;
     }
     try {
-      await register(data.email, data.password, data.firstName, data.lastName);
+      // await register(data.email, data.password, data.firstName, data.lastName);
+      navigate(PATH_AUTH.verify, { replace: true });
     } catch (error) {
       console.error(error);
       reset();
@@ -89,7 +90,7 @@ export default function RegisterForm() {
             <RHFTextField name="email" label="Email Address" />
             <RHFTextField name="bvn" label="BVN" />
           </>
-        ):(
+        ):( 
           <>
           <RHFTextField
             name="password"
@@ -122,8 +123,9 @@ export default function RegisterForm() {
             }}
           />
           <div style={{marginBottom: '50px'}}>
-            <RHFCheckbox name="termsOfService" label="Creating an account means you’ve accepted our" onClick={setTermsOfService(!termsOfService)}/>
-            <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+            {/* <FormControlLabel control={<Checkbox />} name="termsOfService" label="Creating an account means you’ve accepted our"/> */}
+            <RHFCheckbox name="termsOfService" label="Creating an account means you’ve accepted our"/>
+            <Link variant="subtitle2" component={RouterLink} to={'#'}>
                 Terms of Service
               </Link>
           </div>
@@ -133,7 +135,7 @@ export default function RegisterForm() {
           <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={false}>
             Next
           </LoadingButton>):(
-          <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} disabled={!termsOfService}>
+          <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} >
             Register
           </LoadingButton>
         )}
