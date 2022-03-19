@@ -25,7 +25,7 @@ export default function Logo({ disabledLink = false, sx }) {
           disabledEffect
           alt="login"
           src="/logo/limospay.svg"
-          style={{height: sx.height??'60px'}}
+          style={{height: sx.height??'61px'}}
       />
     </Box>
   );

@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
 import MainLayout from '../layouts/main';
+import CustomerLayout from '../layouts/customer';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // guards
@@ -12,6 +13,7 @@ import AuthGuard from '../guards/AuthGuard';
 import { PATH_AFTER_LOGIN } from '../config';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import Page from '../components/Page';
 
 // ----------------------------------------------------------------------
 
@@ -54,9 +56,32 @@ export default function Router() {
       ],
     },
 
+    // Customer Routes
+    {
+      path: '',
+      element: (
+        <AuthGuard>
+          <CustomerLayout />
+        </AuthGuard>
+      ),
+      children: [
+        { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
+        { path: 'dashboard', element: <CustomerDashboard /> },
+        { path: 'payment', element: <CustomerPayment /> },
+        { path: 'transaction/:id', element: <CustomerTransaction /> },
+        { path: 'wallet', element: <CustomerWallet /> },
+        { path: 'notifications', element: <CustomerNotifications /> },
+        { path: 'notification/:id', element: <CustomerNotification /> },
+        { path: 'profile', element: <Page title="Profile" /> },
+        { path: 'settings', element: <Page title="Settings" /> },
+        { path: 'support', element: <CustomerSupport /> },
+        { path: 'support/:page', element: <CustomerSupport /> },
+      ]
+    },
+
     // Dashboard Routes
     {
-      path: 'dashboard',
+      path: 'sample',
       element: (
         <AuthGuard>
           <DashboardLayout />
@@ -169,6 +194,15 @@ const Login = Loadable(lazy(() => import('../pages/auth/Login')));
 const Register = Loadable(lazy(() => import('../pages/auth/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
+
+// CUSTOMER
+const CustomerDashboard = Loadable(lazy(() => import('../pages/customer/Dashboard')));
+const CustomerPayment = Loadable(lazy(() => import('../pages/customer/Payment')));
+const CustomerWallet = Loadable(lazy(() => import('../pages/customer/Wallet')));
+const CustomerNotifications = Loadable(lazy(() => import('../pages/customer/Notifications')));
+const CustomerSupport = Loadable(lazy(() => import('../pages/customer/Support')));
+const CustomerTransaction = Loadable(lazy(() => import('../pages/customer/Transaction')));
+const CustomerNotification = Loadable(lazy(() => import('../pages/customer/Notification')));
 
 // DASHBOARD
 
