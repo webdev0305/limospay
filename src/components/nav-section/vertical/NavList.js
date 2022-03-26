@@ -30,7 +30,7 @@ export function NavListRoot({ list, isCollapse }) {
 
         {!isCollapse && (
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List component="div" sx={{ pl:0 }}>
               {(list.children || []).map((item) => (
                 <NavListSub key={item.title} list={item} />
               ))}

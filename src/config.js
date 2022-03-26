@@ -4,7 +4,7 @@ import { PATH_DASHBOARD } from './routes/paths';
 // API
 // ----------------------------------------------------------------------
 
-export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
+export const HOST_API = process.env.REACT_APP_HOST_API_KEY || 'http://localhost:8080';
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -31,16 +31,16 @@ export const MAPBOX_API = process.env.REACT_APP_MAPBOX;
 
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
-export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/app'
+export const PATH_AFTER_LOGIN = PATH_DASHBOARD.customer.dashboard; // as '/dashboard/app'
 
 // LAYOUT
 // ----------------------------------------------------------------------
 
 export const HEADER = {
   MOBILE_HEIGHT: 64,
-  MAIN_DESKTOP_HEIGHT: 88,
-  DASHBOARD_DESKTOP_HEIGHT: 92,
-  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
+  MAIN_DESKTOP_HEIGHT: 102,
+  DASHBOARD_DESKTOP_HEIGHT: 80,
+  DASHBOARD_DESKTOP_OFFSET_HEIGHT: 80,
 };
 
 export const NAVBAR = {

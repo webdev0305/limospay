@@ -52,7 +52,7 @@ export function NavItemRoot({ item, isCollapse, open = false, active, onOpen }) 
       {renderContent}
     </ListItemStyle>
   ) : (
-    <ListItemStyle component={RouterLink} to={path} activeRoot={active}>
+    <ListItemStyle component={RouterLink} to={path} activeRoot={active} sx={{ borderRadius: 0 }}>
       {renderContent}
     </ListItemStyle>
   );
