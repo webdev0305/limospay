@@ -11,15 +11,13 @@ import { prototype } from 'apexcharts';
 
 
 CustomizedDialogs.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     onClose: PropTypes.func,
     open: PropTypes.bool.isRequired,
     sx: PropTypes.object,
-    variants: PropTypes.object,
     title: PropTypes.string,
     description: PropTypes.string,
     loading: PropTypes.bool.isRequired,
-
   };
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -73,14 +71,21 @@ export default function CustomizedDialogs({ open = false, variants, onClose, chi
         <DialogContent dividers sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>
             <img src="/images/success.svg" alt="success"/>
             <Typography gutterBottom sx={{textAlign: 'center', paddingInline: '20px'}}>
-                {description}
+                {other.success??description}
             </Typography>
-        
+            {other.continue && 
+            <Typography gutterBottom sx={{textAlign: 'center', paddingInline: '20px'}}>
+              {other.continue}
+            </Typography>}
         </DialogContent>}
-        {!loading && <DialogActions sx={{justifyContent: 'space-around'}}>
-          <Button autoFocus onClick={onClose} style={{padding: 0, fontSize: '24px', lineHeight: '35px'}}>
-            OK
-          </Button>
+        {!loading && 
+        <DialogActions sx={{justifyContent: 'space-around'}}>
+          {!other.continue ?
+          <Button autoFocus onClick={onClose} style={{padding: 0, fontSize: '24px', lineHeight: '35px'}}>OK</Button>:
+          <>
+            <Button onClick={onClose} style={{padding: 0, fontSize: '24px', lineHeight: '35px'}}>No</Button>
+            <Button autoFocus onClick={other.onContinue} style={{padding: 0, fontSize: '24px', lineHeight: '35px'}}>Yes Continue</Button>
+          </>}
         </DialogActions>
         }
       </BootstrapDialog>

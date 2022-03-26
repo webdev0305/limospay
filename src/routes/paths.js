@@ -5,7 +5,7 @@ function path(root, sublink) {
 }
 
 const ROOTS_AUTH = '/auth';
-const ROOTS_DASHBOARD = '/dashboard';
+const ROOTS_DASHBOARD = '/sample';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +34,15 @@ export const PATH_PAGE = {
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
+  customer: {
+    dashboard: path('', '/dashboard'),
+    payment: path('', '/payment'),
+    wallet: path('', '/wallet'),
+    notifications: path('', '/notifications'),
+    support: path('', '/support'),
+    profile: path('', '/profile'),
+    settings: path('', '/settings'),
+  },
   general: {
     app: path(ROOTS_DASHBOARD, '/app'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),

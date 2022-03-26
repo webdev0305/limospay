@@ -23,6 +23,10 @@ export default function ThemeColorPresets({ children }) {
       palette: {
         ...defaultTheme.palette,
         primary: setColor,
+        white: {
+          main: '#fff',
+          contrastText: '#fff',
+        },
       },
       customShadows: {
         ...defaultTheme.customShadows,

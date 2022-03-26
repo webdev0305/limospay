@@ -1,5 +1,7 @@
 // @mui
+import { Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Image from '../components/Image';
 // components
 import Page from '../components/Page';
 // sections
@@ -35,7 +37,22 @@ export default function HomePage() {
       <RootStyle>
         <HomeHero />
         <ContentStyle>
-          <HomeMinimal />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 8,
+              bgcolor: '#FAFAFA'
+            }}
+            py={6}
+          >
+            <Typography variant="h5" color="#aaa">Trusted by over 50,000 businesses</Typography>            
+            <Image src="/images/home/trust-mtn.png"/>
+            <Image src="/images/home/trust-domino.png"/>
+            <Image src="/images/home/trust-b.png"/>
+          </Box>
+          {/* <HomeMinimal />
 
           <HomeHugePackElements />
 
@@ -49,7 +66,7 @@ export default function HomePage() {
 
           <HomeLookingFor />
 
-          <HomeAdvertisement />
+          <HomeAdvertisement /> */}
         </ContentStyle>
       </RootStyle>
     </Page>

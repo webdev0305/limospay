@@ -45,6 +45,7 @@ export default function RegisterForm() {
     email: '',
     password: '',
     confirmPassword: '',
+    bvn: '',
     termsOfService: false,
   };
 
@@ -67,11 +68,11 @@ export default function RegisterForm() {
       return;
     }
     try {
-      // await register(data.email, data.password, data.firstName, data.lastName);
+      await register(data);
       navigate(PATH_AUTH.verify, { replace: true });
     } catch (error) {
-      console.error(error);
-      reset();
+      setStep(1)
+      // reset();
       if (isMountedRef.current) {
         setError('afterSubmit', { ...error, message: error.message });
       }
@@ -86,7 +87,7 @@ export default function RegisterForm() {
           <>
             <RHFTextField name="firstName" label="First Name" />
             <RHFTextField name="lastName" label="Last Name" />
-            <RHFTextField name="phone" label="Phone Number" />
+            <RHFTextField name="phoneNumber" label="Phone Number" />
             <RHFTextField name="email" label="Email Address" />
             <RHFTextField name="bvn" label="BVN" />
           </>

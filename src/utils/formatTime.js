@@ -2,6 +2,10 @@ import { format, getTime, formatDistanceToNow } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
+export function formatDate(date,fmt) {
+  return format(new Date(date), fmt);
+}
+
 export function fDate(date) {
   return format(new Date(date), 'dd MMMM yyyy');
 }
@@ -15,7 +19,7 @@ export function fTimestamp(date) {
 }
 
 export function fDateTimeSuffix(date) {
-  return format(new Date(date), 'dd/MM/yyyy hh:mm p');
+  return format(new Date(date), 'dd/MM/yyyy p');
 }
 
 export function fToNow(date) {

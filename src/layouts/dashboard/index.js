@@ -10,9 +10,9 @@ import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // config
 import { HEADER, NAVBAR } from '../../config';
 //
-import DashboardHeader from './header';
-import NavbarVertical from './navbar/NavbarVertical';
-import NavbarHorizontal from './navbar/NavbarHorizontal';
+import DashboardHeader from '../header';
+import NavbarVertical from '../navbar/NavbarVertical';
+import NavbarHorizontal from '../navbar/NavbarHorizontal';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ const MainStyle = styled('main', {
   flexGrow: 1,
   paddingTop: HEADER.MOBILE_HEIGHT + 24,
   paddingBottom: HEADER.MOBILE_HEIGHT + 24,
+  backgroundColor: '#E5E5E5',
   [theme.breakpoints.up('lg')]: {
     paddingLeft: 16,
     paddingRight: 16,
