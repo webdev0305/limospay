@@ -1,80 +1,50 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { styled } from '@mui/material/styles';
-import { Box, Button, Container, Typography } from '@mui/material';
-// layouts
-import LogoOnlyLayout from '../../layouts/LogoOnlyLayout';
-// routes
+import { Box, Button, Link, Typography } from '@mui/material';
 import { PATH_AUTH } from '../../routes/paths';
-// components
-import Page from '../../components/Page';
-// sections
 import { ResetPasswordForm } from '../../sections/auth/reset-password';
-// assets
 import { SentIcon } from '../../assets';
-
-// ----------------------------------------------------------------------
-
-const RootStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  minHeight: '100%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: theme.spacing(12, 0),
-}));
-
-// ----------------------------------------------------------------------
+import AuthPage from '../../components/AuthPage';
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
 
   return (
-    <Page title="Reset Password" sx={{ height: 1 }}>
-      <RootStyle>
-        <LogoOnlyLayout />
+    <AuthPage title="Forgot Password">
+      {!sent ? (
+        <>
+          <Typography sx={{ color: 'text.secondary', mt:2, mb: 10 }} align="center">
+            To reset your password, kindly enter the email you used to create this account
+          </Typography>
+          <ResetPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
+          <Typography variant="body2" align="center" sx={{ mt: 3 }}>
+            Return to{' '}
+            <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
+              Login
+            </Link>
+          </Typography>
+        </>
+      ) : (
+        <Box sx={{ textAlign: 'center' }}>
+          <SentIcon sx={{ mb: 5, mx: 'auto', height: 160 }} />
 
-        <Container>
-          <Box sx={{ maxWidth: 480, mx: 'auto' }}>
-            {!sent ? (
-              <>
-                <Typography variant="h3" paragraph>
-                  Forgot your password?
-                </Typography>
-                <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-                  Please enter the email address associated with your account and We will email you a link to reset your
-                  password.
-                </Typography>
+          <Typography variant="h3" gutterBottom>
+            Request sent successfully
+          </Typography>
+          <Typography>
+            We have sent a confirmation email to &nbsp;
+            <strong>{email}</strong>
+            <br />
+            Please check your email.
+          </Typography>
 
-                <ResetPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
-
-                <Button fullWidth size="large" component={RouterLink} to={PATH_AUTH.login} sx={{ mt: 1 }}>
-                  Back
-                </Button>
-              </>
-            ) : (
-              <Box sx={{ textAlign: 'center' }}>
-                <SentIcon sx={{ mb: 5, mx: 'auto', height: 160 }} />
-
-                <Typography variant="h3" gutterBottom>
-                  Request sent successfully
-                </Typography>
-                <Typography>
-                  We have sent a confirmation email to &nbsp;
-                  <strong>{email}</strong>
-                  <br />
-                  Please check your email.
-                </Typography>
-
-                <Button size="large" variant="contained" component={RouterLink} to={PATH_AUTH.login} sx={{ mt: 5 }}>
-                  Back
-                </Button>
-              </Box>
-            )}
-          </Box>
-        </Container>
-      </RootStyle>
-    </Page>
+          <Button size="large" variant="contained" component={RouterLink} to={PATH_AUTH.login} sx={{ mt: 5 }}>
+            Back
+          </Button>
+        </Box>
+      )}
+    </AuthPage>
   );
 }

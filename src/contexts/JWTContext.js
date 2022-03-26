@@ -36,13 +36,10 @@ const handlers = {
     isAuthenticated: false,
     user: null,
   }),
-  REGISTER: (state, action) => {
-    const { user } = action.payload;
-
+  REGISTER: (state) => {
     return {
       ...state,
-      isAuthenticated: true,
-      user,
+      isAuthenticated: false
     };
   },
 };
@@ -109,37 +106,42 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
+    const response = await axios.post('/api/user/login', {
       email,
       password,
     });
-    const { accessToken, user } = response.data;
-
-    setSession(accessToken);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user,
-      },
-    });
+    const { success, message, accessToken, user } = response.data;
+    if(success) {
+      setSession(accessToken);
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user,
+        },
+      });
+    } else {
+      throw Error(message)
+    }
   };
 
-  const register = async (email, password, firstName, lastName) => {
-    const response = await axios.post('/api/account/register', {
-      email,
-      password,
-      firstName,
-      lastName,
+  const register = async (data) => {
+    const response = await axios.post('/api/user/register', {
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password,
+      phoneNumber: data.phoneNumber,
+      bvn: data.bvn
     });
-    const { accessToken, user } = response.data;
+    const { success,message } = response.data;
 
-    window.localStorage.setItem('accessToken', accessToken);
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        user,
-      },
-    });
+    if(success) {
+      dispatch({
+        type: 'REGISTER',
+      });
+    } else {
+      throw Error(message)
+    }
   };
 
   const logout = async () => {

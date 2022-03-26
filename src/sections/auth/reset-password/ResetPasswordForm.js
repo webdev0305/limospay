@@ -44,7 +44,7 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
       if (isMountedRef.current) {
         onSent();
         onGetEmail(data.email);
-        navigate(PATH_AUTH.verify, { replace: true });
+        navigate(PATH_AUTH.verify, { replace: true, state: { task:'reset-password' } });
       }
     } catch (error) {
       console.error(error);
@@ -53,8 +53,8 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+      <Stack spacing={10}>
+        <RHFTextField name="email" label="Email address"/>
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
           Reset Password

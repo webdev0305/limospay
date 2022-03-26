@@ -1,8 +1,8 @@
 {
-  "name": "@minimal/minimal-kit-react",
-  "author": "minimals.cc",
-  "version": "3.2.0",
-  "description": "Javascript Version",
+  "name": "limospay-frontend",
+  "author": "truth4you",
+  "version": "1.0.0",
+  "description": "LimosPay Frontend",
   "private": true,
   "scripts": {
     "start": "react-app-rewired start",

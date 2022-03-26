@@ -5,7 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
+import { Typography, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
@@ -31,9 +31,9 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
-    remember: true,
+    email: '',
+    password: '',
+    remember: false,
   };
 
   const methods = useForm({
@@ -62,9 +62,7 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-
-        <RHFTextField name="email" label="Email address" style={{marginTop: '60px'}}/>
+        <RHFTextField name="email" label="Email or Phone number" style={{marginTop: '60px'}}/>
 
         <RHFTextField
           name="password"
@@ -84,12 +82,11 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        
-        <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
-          Forgot password?
-        </Link>
+        <Typography component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword} sx={{textDecoration:'none',color:'gray'}}>
+          Forgot your password?
+        </Typography>
       </Stack>
-
+      {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} style={{marginTop: 30}}>
         Login
       </LoadingButton>

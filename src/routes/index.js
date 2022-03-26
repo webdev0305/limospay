@@ -58,7 +58,7 @@ export default function Router() {
 
     // Customer Routes
     {
-      path: '',
+      path: '*',
       element: (
         <AuthGuard>
           <CustomerLayout />

@@ -12,7 +12,7 @@ Logo.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function Logo({ disabledLink = false, sx }) {
+export default function Logo({ color, disabledLink = false, sx }) {
   const theme = useTheme();
   const PRIMARY_LIGHT = theme.palette.primary.light;
   const PRIMARY_MAIN = theme.palette.primary.main;
@@ -24,8 +24,8 @@ export default function Logo({ disabledLink = false, sx }) {
           visibleByDefault
           disabledEffect
           alt="login"
-          src="/logo/limospay.svg"
-          style={{height: sx.height??'61px'}}
+          src={color===undefined?"/logo/limospay.svg":`/logo/limospay-${color}.svg`}
+          style={{height: sx?.height??'61px'}}
       />
     </Box>
   );
