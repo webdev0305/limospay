@@ -36,10 +36,13 @@ const handlers = {
     isAuthenticated: false,
     user: null,
   }),
-  REGISTER: (state) => {
+  REGISTER: (state, action) => {
+    const { user, tokenOTP } = action.payload;
     return {
       ...state,
-      isAuthenticated: false
+      isAuthenticated: false,
+      tokenOTP,
+      user
     };
   },
 };
@@ -52,6 +55,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
+  verify: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -91,7 +95,6 @@ function AuthProvider({ children }) {
           });
         }
       } catch (err) {
-        console.error(err);
         dispatch({
           type: 'INITIALIZE',
           payload: {
@@ -133,20 +136,43 @@ function AuthProvider({ children }) {
       phoneNumber: data.phoneNumber,
       bvn: data.bvn
     });
-    const { success,message } = response.data;
+    const { success, message, user, token } = response.data;
 
     if(success) {
+      if(user && user.status===1)
+        return false
       dispatch({
         type: 'REGISTER',
+        payload: { tokenOTP: token, user }
       });
-    } else {
+    } else
       throw Error(message)
-    }
   };
 
   const logout = async () => {
     setSession(null);
     dispatch({ type: 'LOGOUT' });
+  };
+
+  const verify = async (action, code) => {
+    const response = await axios.post(`/api/user/verify/${action}`, {
+      id: state.user?.id,
+      code,
+    }, {
+      headers: {
+        'OTP-Token': state.tokenOTP
+      }
+    });
+    const { success, message } = response.data;
+
+    // if(success) {
+    //   dispatch({
+    //     type: 'REGISTER',
+    //     payload: { user }
+    //   });
+    // }
+    if(!success)
+      throw Error(message)
   };
 
   return (
@@ -157,6 +183,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        verify
       }}
     >
       {children}
