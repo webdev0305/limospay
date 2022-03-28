@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha } from '@mui/material/styles';
+
 import { Link, Stack, Button, Tooltip, IconButton } from '@mui/material';
+import Image from './Image';
 //
 import Iconify from './Iconify';
 
@@ -18,25 +20,25 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
   const SOCIALS = [
     {
       name: 'FaceBook',
-      icon: 'eva:facebook-fill',
+      icon: '/images/home/FaceBook.png',
       socialColor: '#1877F2',
       path: links.facebook || '#facebook-link',
     },
     {
       name: 'Instagram',
-      icon: 'ant-design:instagram-filled',
+      icon: '/images/home/Instagram.png',
       socialColor: '#E02D69',
       path: links.instagram || '#instagram-link',
     },
     {
       name: 'Linkedin',
-      icon: 'eva:linkedin-fill',
+      icon: '/images/home/Linkedin.png',
       socialColor: '#007EBB',
       path: links.linkedin || '#linkedin-link',
     },
     {
       name: 'Twitter',
-      icon: 'eva:twitter-fill',
+      icon: '/images/home/Twitter.png',
       socialColor: '#00AAEC',
       path: links.twitter || '#twitter-link',
     },
@@ -49,7 +51,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
         return simple ? (
           <Link key={name} href={path}>
             <Tooltip title={name} placement="top">
-              <IconButton
+              {/* <IconButton
                 color="inherit"
                 sx={{
                   ...(initialColor && {
@@ -63,7 +65,12 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
                 {...other}
               >
                 <Iconify icon={icon} sx={{ width: 20, height: 20 }} />
-              </IconButton>
+              </IconButton> */}
+              <Image 
+                src={icon}
+                alt={name}
+                sx={{width: '63px', mr: 3, mt:{xs:2, md:0}}}
+              />
             </Tooltip>
           </Link>
         ) : (

@@ -1,38 +1,21 @@
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
+import { Grid, Link, Divider, Container, Typography, Stack, Input, InputAdornment, Button } from '@mui/material';
 // routes
 import { PATH_PAGE } from '../../routes/paths';
 // components
-import Logo from '../../components/Logo';
+// import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
 
 // ----------------------------------------------------------------------
 
 const LINKS = [
-  {
-    headline: 'Minimal',
-    children: [
-      { name: 'About us', href: PATH_PAGE.about },
-      { name: 'Contact us', href: PATH_PAGE.contact },
-      { name: 'FAQs', href: PATH_PAGE.faqs },
-    ],
-  },
-  {
-    headline: 'Legal',
-    children: [
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
-    ],
-  },
-  {
-    headline: 'Contact',
-    children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
-    ],
-  },
+  { name: 'About us', href: PATH_PAGE.about },
+  { name: 'About us', href: PATH_PAGE.about },
+  { name: 'About us', href: PATH_PAGE.about },
+  { name: 'About us', href: PATH_PAGE.about },
+  { name: 'About us', href: PATH_PAGE.about },
 ];
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -40,34 +23,87 @@ const RootStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
+
 // ----------------------------------------------------------------------
 
 export default function MainFooter() {
   return (
     <RootStyle>
-      <Divider />
-      <Container sx={{ pt: 10 }}>
+      <div style={{backgroundColor: 'black'}}>
+        <Container sx={{ py: 5}}>
+          <Grid
+            container
+            justifyContent={{ xs: 'center', md: 'space-between' }}
+            sx={{ textAlign: { xs: 'center', md: 'left' } }}
+          >
+            <Grid item xs={12} md={8}>
+              <Typography sx={{ fontSize:'36px', fontWeight: 600, mt: 2, color: 'grey.0' }}>
+                Customer Support
+              </Typography>
+              <Typography sx={{ fontSize:'18px', fontWeight: 600, mt: 2, color: 'grey.500', maxWidth: '600px' }}>
+                If you have any questions or want to know more about Wayapay
+                and our services, check our FAQ or contact our Customer Support
+              </Typography>
+              <Typography sx={{ fontSize:'18px', fontWeight: 600, mt: 3, color: 'grey.100' }}>
+                Contact us &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="mailto:info@limospay.com" style={{color: 'white'}}>info@limospay.com</a>
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography sx={{ fontSize:'36px', fontWeight: 600, mt: 2, color: 'grey.0' }}>
+                Stay Updated
+              </Typography>
+              <Typography sx={{ fontSize:'18px', fontWeight: 600, mt: 2, mb: 3, color: 'grey.500' }}>
+                Be the First to Know About our Promotions, Giveaways, and Amazing Business Offers
+              </Typography>
+              <Input
+                name="email"
+                placeholder="Enter your email address"
+                sx={{border: '0px solid white', bgcolor: 'grey.800', px: 1, width: '350px', height: '56px', borderRadius: '4px'}}
+              />
+              <Button sx={{bgcolor: 'primary.main', color:'grey.0', px:2, ml: -13, height: 46, '&:hover':{bgcolor: 'primary.light'}}}>
+                Subscribe
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
+      <Container sx={{ py: 5 }}>
         <Grid
           container
           justifyContent={{ xs: 'center', md: 'space-between' }}
           sx={{ textAlign: { xs: 'center', md: 'left' } }}
         >
-          <Grid item xs={12} sx={{ mb: 3 }}>
-            <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
-          </Grid>
-          <Grid item xs={8} md={3}>
-            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+          <Grid item xs={12} md={5}>
+            <Typography sx={{ fontSize:'24px', fontWeight: 600, mt: 2 }}>
+              Follow and Contact us.
             </Typography>
+          </Grid>
 
+          <Grid item xs={12} md={7}>
             <Stack
               direction="row"
-              justifyContent={{ xs: 'center', md: 'flex-start' }}
-              sx={{ mt: 5, mb: { xs: 5, md: 0 } }}
+              justifyContent={{ xs: 'center', md: 'flex-end' }}
+              sx={{}}
             >
               <SocialsButton sx={{ mx: 0.5 }} />
             </Stack>
+          </Grid>
+        </Grid>
+      </Container>
+      <Divider />
+      <Container sx={{ py: 10 }}>
+        <Grid
+          container
+          justifyContent={{ xs: 'center', md: 'space-between' }}
+          sx={{ textAlign: { xs: 'center', md: 'left' } }}
+        >
+          <Grid item xs={12} md={5}>
+            <Typography sx={{ fontSize:'20px' }}>
+              Copyright © Waya 2020  All rights reserved
+            </Typography>
+
+            
           </Grid>
 
           <Grid item xs={12} md={7}>
@@ -77,40 +113,24 @@ export default function MainFooter() {
               justifyContent="space-between"
             >
               {LINKS.map((list) => (
-                <Stack key={list.headline} spacing={2}>
-                  <Typography component="p" variant="overline">
-                    {list.headline}
-                  </Typography>
-                  {list.children.map((link) => (
-                    <Link
-                      to={link.href}
-                      key={link.name}
-                      color="inherit"
+                <Stack key={list.name} spacing={2}>
+                  <Link
+                      to={list.href}
+                      key={list.name}
+                      color="primary.main"
                       variant="body2"
                       component={RouterLink}
                       sx={{ display: 'block' }}
                     >
-                      {link.name}
+                      <Typography component="p" sx={{fontSize: '18px', fontWeight: 'bold'}}>
+                        {list.name}
+                      </Typography>
                     </Link>
-                  ))}
                 </Stack>
               ))}
             </Stack>
           </Grid>
         </Grid>
-
-        <Typography
-          component="p"
-          variant="body2"
-          sx={{
-            mt: 10,
-            pb: 5,
-            fontSize: 13,
-            textAlign: { xs: 'center', md: 'left' },
-          }}
-        >
-          © 2021. All rights reserved
-        </Typography>
       </Container>
     </RootStyle>
   );

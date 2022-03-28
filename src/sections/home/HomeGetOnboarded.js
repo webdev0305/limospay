@@ -22,62 +22,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const ScreenStyle = styled(m.div)(({ theme }) => ({
-  paddingRight: 2,
-  paddingBottom: 1,
-  maxWidth: 160,
-  borderRadius: 8,
-  backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 300 : 800],
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: 320,
-    paddingRight: 4,
-    borderRadius: 12,
-  },
-  '& img': {
-    borderRadius: 8,
-    [theme.breakpoints.up('sm')]: {
-      borderRadius: 12,
-    },
-  },
-}));
-
-const COMMON = {
-  scaleX: 0.86,
-  skewY: 8,
-  skewX: 0,
-  scaleY: 1,
-  translateX: 0,
-  translateY: 0,
-  opacity: 0,
-};
-
-const variantScreenLeft = {
-  initial: COMMON,
-  animate: { ...COMMON, translateX: '-50%', translateY: 40, opacity: 1 },
-};
-const variantScreenCenter = {
-  initial: COMMON,
-  animate: { ...COMMON, opacity: 1 },
-};
-const variantScreenRight = {
-  initial: COMMON,
-  animate: { ...COMMON, translateX: '50%', translateY: -40, opacity: 1 },
-};
-
 // ----------------------------------------------------------------------
 
 export default function HomeGetOnboarded() {
-  const theme = useTheme();
-
-  const isLight = theme.palette.mode === 'light';
-
-  const isRTL = theme.direction === 'rtl';
-
-  const screenLeftAnimate = variantScreenLeft;
-
-  const screenCenterAnimate = variantScreenCenter;
-
-  const screenRightAnimate = variantScreenRight;
 
   return (
     <RootStyle>
