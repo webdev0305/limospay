@@ -93,7 +93,7 @@ export default function HomeHero() {
               </Typography>
               <Stack direction="row" mt={8} gap={4}>
                 <Button component={RouterLink} to="auth/register" sx={{ bgcolor:'primary.main', color:'common.white', '&:hover':{bgcolor:'primary.main',opacity:0.65} }}>Register now</Button>
-                <Button component={Link} href="auth/register" target="_blank" sx={{ bgcolor:'common.white', color:'common.gray', '&:hover':{bgcolor:'common.white',opacity:0.65} }}>Explore Docs</Button>
+                <Button component={Link} href="auth/register" target="_blank" sx={{ bgcolor:'grey.200', color:'grey.900', '&:hover':{bgcolor:'common.white',opacity:0.65} }}>Explore Docs</Button>
               </Stack>
             </m.div>
           </ContentStyle>

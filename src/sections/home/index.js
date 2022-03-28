@@ -1,9 +1,10 @@
 export { default as HomeHero } from './HomeHero';
-export { default as HomeMinimal } from './HomeMinimal';
+export { default as HomeEasyToUse } from './HomeEasyToUse';
+export { default as HomeEasyCreateWallet } from './HomeEasyCreateWallet';
+export { default as HomeGetOnboarded } from './HomeGetOnboarded';
+export { default as HomeProtection } from './HomeProtection';
+export { default as HomeUniqueFeatures } from './HomeUniqueFeatures';
+export { default as HomeReview } from './HomeReview';
 export { default as HomeDarkMode } from './HomeDarkMode';
-export { default as HomeLookingFor } from './HomeLookingFor';
-export { default as HomeColorPresets } from './HomeColorPresets';
-export { default as HomePricingPlans } from './HomePricingPlans';
-export { default as HomeAdvertisement } from './HomeAdvertisement';
-export { default as HomeCleanInterfaces } from './HomeCleanInterfaces';
-export { default as HomeHugePackElements } from './HomeHugePackElements';
+export { default as HomeHero1 } from './HomeHero1';
+

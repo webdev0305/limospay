@@ -9,7 +9,7 @@ import { MotionViewport, varFade } from '../../components/animate';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(24, 0),
+  padding: theme.spacing(0, 0),
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
@@ -66,7 +66,7 @@ const variantScreenRight = {
 
 // ----------------------------------------------------------------------
 
-export default function HomeHugePackElements() {
+export default function HomeGetOnboarded() {
   const theme = useTheme();
 
   const isLight = theme.palette.mode === 'light';
@@ -82,49 +82,8 @@ export default function HomeHugePackElements() {
   return (
     <RootStyle>
       <Container component={MotionViewport}>
-        <Grid container spacing={5} justifyContent="center">
-          <Grid item xs={12} md={4} sx={{ display: 'flex', alignItems: 'center' }}>
-            <ContentStyle>
-              <m.div variants={varFade().inUp}>
-                <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-                  Interface Starter Kit
-                </Typography>
-              </m.div>
-
-              <m.div variants={varFade().inUp}>
-                <Typography variant="h2" sx={{ mb: 3 }}>
-                  Huge pack <br />
-                  of elements
-                </Typography>
-              </m.div>
-
-              <m.div variants={varFade().inUp}>
-                <Typography
-                  sx={{
-                    mb: 5,
-                    color: isLight ? 'text.secondary' : 'common.white',
-                  }}
-                >
-                  We collected most popular elements. Menu, sliders, buttons, inputs etc. are all here. Just dive in!
-                </Typography>
-              </m.div>
-
-              <m.div variants={varFade().inUp}>
-                <Button
-                  size="large"
-                  color="inherit"
-                  variant="outlined"
-                  target="_blank"
-                  rel="noopener"
-                  href="https://www.minimals.cc/components/"
-                >
-                  View All Components
-                </Button>
-              </m.div>
-            </ContentStyle>
-          </Grid>
-
-          <Grid item xs={12} md={8} dir="ltr">
+        <Grid container spacing={0} justifyContent="center">
+          <Grid item xs={12} md={7} >
             <Box
               sx={{
                 display: 'flex',
@@ -133,42 +92,47 @@ export default function HomeHugePackElements() {
                 justifyContent: 'center',
               }}
             >
-              {[...Array(3)].map((_, index) => (
-                <ScreenStyle
-                  key={index}
-                  variants={{
-                    ...(index === 0 && screenLeftAnimate),
-                    ...(index === 1 && screenCenterAnimate),
-                    ...(index === 2 && screenRightAnimate),
-                  }}
-                  transition={{ duration: 0.72, ease: 'easeOut' }}
+              <Image
+                disabledEffect
+                alt="get-onboarded"
+                src="/images/home/get-onboarded.png"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={5} dir="ltr" sx={{ display: 'flex', alignItems: 'center' }}>
+            <ContentStyle>
+              <m.div variants={varFade().inUp}>
+                <Typography sx={{ mb: 3, fontSize: '36px', fontWeight: 600, lineHeight: '50px', color: 'grey.900'}}>
+                  Get onboarded and begin Transacting and paying  in no time.
+                </Typography>
+              </m.div>
+
+              <m.div variants={varFade().inUp}>
+                <Typography
                   sx={{
-                    boxShadow: `${isRTL ? -80 : 80}px -40px 80px ${alpha(
-                      isLight ? theme.palette.grey[600] : theme.palette.common.black,
-                      0.48
-                    )}`,
-                    ...(index === 0 && {
-                      zIndex: 3,
-                      position: 'absolute',
-                    }),
-                    ...(index === 1 && { zIndex: 2 }),
-                    ...(index === 2 && {
-                      zIndex: 1,
-                      position: 'absolute',
-                      boxShadow: 'none',
-                    }),
+                    mb: 5,
+                    color: 'grey.700',
+                    fontSize: '22px',
+                    fontWeight: 400
                   }}
                 >
-                  <Image
-                    disabledEffect
-                    alt={`screen ${index + 1}`}
-                    src={`https://minimal-assets-api.vercel.app/assets/images/home/screen_${
-                      isLight ? 'light' : 'dark'
-                    }_${index + 1}.png`}
-                  />
-                </ScreenStyle>
-              ))}
-            </Box>
+                  One platform that lets you sell wherever your customers are — online, in‑person, anywhere in the world
+                </Typography>
+              </m.div>
+
+              <m.div variants={varFade().inUp}>
+                <Button
+                  sx={{ bgcolor:'primary.main', color:'common.white', '&:hover':{bgcolor:'primary.main',opacity:0.65} }}
+                  size="large"
+                  variant="outlined"
+                  target="_blank"
+                  rel="noopener"
+                  href="https://www.minimals.cc/components/"
+                >
+                  Start paying Bills
+                </Button>
+              </m.div>
+            </ContentStyle>
           </Grid>
         </Grid>
       </Container>

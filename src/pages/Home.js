@@ -7,14 +7,14 @@ import Page from '../components/Page';
 // sections
 import {
   HomeHero,
-  HomeMinimal,
+  HomeEasyToUse,
+  HomeEasyCreateWallet,
+  HomeGetOnboarded,
+  HomeProtection,
+  HomeUniqueFeatures,
+  HomeReview,
   HomeDarkMode,
-  HomeLookingFor,
-  HomeColorPresets,
-  HomePricingPlans,
-  HomeAdvertisement,
-  HomeCleanInterfaces,
-  HomeHugePackElements,
+  HomeHero1,
 } from '../sections/home';
 
 // ----------------------------------------------------------------------
@@ -52,21 +52,14 @@ export default function HomePage() {
             <Image src="/images/home/trust-domino.png"/>
             <Image src="/images/home/trust-b.png"/>
           </Box>
-          {/* <HomeMinimal />
-
-          <HomeHugePackElements />
-
+          <HomeEasyToUse />
+          <HomeEasyCreateWallet />
+          <HomeGetOnboarded />
+          <HomeProtection />
+          <HomeUniqueFeatures />
+          <HomeReview />
           <HomeDarkMode />
-
-          <HomeColorPresets />
-
-          <HomeCleanInterfaces />
-
-          <HomePricingPlans />
-
-          <HomeLookingFor />
-
-          <HomeAdvertisement /> */}
+          <HomeHero1 />
         </ContentStyle>
       </RootStyle>
     </Page>
