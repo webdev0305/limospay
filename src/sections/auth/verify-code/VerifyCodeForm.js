@@ -3,14 +3,17 @@ import { useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
 // @mui
+import { Alert } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import {Dialog} from '../../../components/modal';
+import { Dialog } from '../../../components/modal';
 import VerifyCode from './VerifyCode';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 export default function VerifyCodeForm() {
+  const { verify } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,28 +24,34 @@ export default function VerifyCodeForm() {
   };
   
   const {
+    reset,
     handleSubmit,
-    formState: { isSubmitting },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm()
 
   const onSubmit = async () => {
     setLoading(true)
     setOpen(true)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setLoading(false)
+      await verify('register',code)
       // enqueueSnackbar('Verify success!');
-
       // navigate(PATH_DASHBOARD.root, { replace: true });
     } catch (error) {
-      console.error(error);
+      setError('afterSubmit', { ...error, message: error.message })
+      // reset()
+      setOpen(false)
     }
+    setLoading(false)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <VerifyCode digit={6} onChange={(code)=>setCode(code)}/>
-
+      <VerifyCode digit={6} onChange={(code)=>{
+        reset()
+        setCode(code)
+      }}/>
+      {!!errors.afterSubmit && <Alert severity="error" sx={{ mt: 4 }}>{errors.afterSubmit.message}</Alert>}
       <LoadingButton
         fullWidth
         size="large"

@@ -15,6 +15,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import axios from '../../../utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -63,13 +64,29 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit = async (data) => {
-    if(step===1){
+    if(step===1) {
+      axios.post('/api/user/exists', {
+        email: data.email,
+      }).then(response => {
+        if(response.data.success) {
+          setError('info', { message: 'Already registered. Please login.' });
+          setTimeout(()=>{
+            navigate(PATH_AUTH.login, { replace: true });  
+          }, 2000)
+        }
+      })
       setStep(2)
       return;
     }
     try {
-      await register(data);
-      navigate(PATH_AUTH.verify, { replace: true });
+      const res = await register(data);
+      if(res===false) {
+        setError('info', { message: 'Already registered. Please login.' });
+        setTimeout(()=>{
+          navigate(PATH_AUTH.login, { replace: true });  
+        }, 2000)
+      } else
+        navigate(PATH_AUTH.verify, { replace: true });
     } catch (error) {
       setStep(1)
       // reset();
@@ -132,6 +149,7 @@ export default function RegisterForm() {
           </div>
         </>
         )}
+        {!!errors.info && <Alert severity="success">{errors.info.message}</Alert>}
         {step===1? (
           <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={false}>
             Next
